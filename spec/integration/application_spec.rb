@@ -13,7 +13,8 @@ describe Application do
 
       expect(response.status).to eq(200)
       expect(response.body).to include('<h1>Albums</h1>')
-      expect(response.body).to include('Title: Surfer Rosa')
+      expect(response.body).to include('<a href="/albums/2">Surfer Rosa, 1988</a>')
+      expect(response.body).to include('<a href="/albums/3">Waterloo, 1974</a>')
     end
   end
 
