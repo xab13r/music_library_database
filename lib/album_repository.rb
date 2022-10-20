@@ -23,7 +23,7 @@ class AlbumRepository
       albums << album
     end
 
-    return albums
+    albums
   end
 
   def find(id)
@@ -36,18 +36,18 @@ class AlbumRepository
     album.release_year = result_set[0]['release_year']
     album.artist_id = result_set[0]['artist_id'].to_i
 
-    return album
+    album
   end
 
   def create(album)
     sql = 'INSERT INTO albums (title, release_year, artist_id) VALUES ($1, $2, $3);'
     result_set = DatabaseConnection.exec_params(sql, [album.title, album.release_year, album.artist_id])
 
-    return album
+    album
   end
 
   def delete(id)
-    sql = 'DELETE FROM albums WHERE id = $1;';
-    DatabaseConnection.exec_params(sql, [id]);
+    sql = 'DELETE FROM albums WHERE id = $1;'
+    DatabaseConnection.exec_params(sql, [id])
   end
 end

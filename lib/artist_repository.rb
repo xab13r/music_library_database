@@ -22,7 +22,7 @@ class ArtistRepository
       artists << artist
     end
 
-    return artists
+    artists
   end
 
   def find(id)
@@ -34,13 +34,13 @@ class ArtistRepository
     artist.name = result_set[0]['name']
     artist.genre = result_set[0]['genre']
 
-    return artist
+    artist
   end
 
   def create(artist)
     sql = 'INSERT INTO artists (name, genre) VALUES ($1, $2);'
     result_set = DatabaseConnection.exec_params(sql, [artist.name, artist.genre])
 
-    return artist
+    artist
   end
 end
