@@ -12,7 +12,8 @@ describe Application do
       response = get('/albums')
 
       expect(response.status).to eq(200)
-      expect(response.body).to eq('Surfer Rosa, Waterloo, Super Trouper, Bossanova, Lover, Folklore, I Put a Spell on You, Baltimore, Here Comes the Sun, Fodder on My Wings, Ring Ring')
+      expect(response.body).to include("<h1>Albums</h1>")
+      expect(response.body).to include("Title: Surfer Rosa")
     end
   end
 
