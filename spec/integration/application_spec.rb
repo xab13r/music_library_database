@@ -48,9 +48,32 @@ describe Application do
       expect(response.body).to include('<a href="/artists/3">Taylor Swift, Pop</a>')
     end
   end
+  
+  describe 'GET /albums/new' do
+    it " returns the form to add a new album" do
+      response = get('/albums/new')
+      
+      expect(response.status).to eq(200)
+      expect(response.body).to include('<form action="/albums" method="POST">')
+      expect(response.body).to include('<input type="text" name="title">')
+      expect(response.body).to include('<input type="text" name="release_year">')
+      expect(response.body).to include('<input type="text" name="artist_id">')
+    end
+  end
 
   describe 'POST /albums' do
-    it 'adds a new albums to the database' do
+    
+    it "should validate album parameters" do
+      response = post(
+        '/albums',
+        invalid_artist_title: 'OK Computer',
+        another_invalid_thing: 123
+      )
+      
+      expect(response.status).to eq(400)
+    end 
+    
+    xit 'adds a new albums to the database' do
       post_response = post(
         '/albums',
         title: 'Voyage',
@@ -65,7 +88,7 @@ describe Application do
   end
 
   describe 'POST /artists' do
-    it 'adds a new artist to the database' do
+    xit 'adds a new artist to the database' do
       # post_response = post(
       #  '/artists',
       #  name: 'Wild Nothing',
