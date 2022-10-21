@@ -48,11 +48,11 @@ describe Application do
       expect(response.body).to include('<a href="/artists/3">Taylor Swift, Pop</a>')
     end
   end
-  
+
   describe 'GET /albums/new' do
-    it " returns the form to add a new album" do
+    it ' returns the form to add a new album' do
       response = get('/albums/new')
-      
+
       expect(response.status).to eq(200)
       expect(response.body).to include('<form action="/albums" method="POST">')
       expect(response.body).to include('<input type="text" name="title">')
@@ -61,19 +61,29 @@ describe Application do
     end
   end
 
+  describe 'GET /artists/new' do
+    it ' returns the form to add a new album' do
+      response = get('/artists/new')
+
+      expect(response.status).to eq(200)
+      expect(response.body).to include('<form action="/artists" method="POST">')
+      expect(response.body).to include('<input type="text" name="name">')
+      expect(response.body).to include('<input type="text" name="genre">')
+    end
+  end
+
   describe 'POST /albums' do
-    
-    it "should validate album parameters" do
+    it 'should validate album parameters' do
       response = post(
         '/albums',
         invalid_artist_title: 'OK Computer',
         another_invalid_thing: 123
       )
-      
+
       expect(response.status).to eq(400)
-    end 
-    
-    xit 'adds a new albums to the database' do
+    end
+
+    it 'adds a new albums to the database' do
       post_response = post(
         '/albums',
         title: 'Voyage',
@@ -88,19 +98,15 @@ describe Application do
   end
 
   describe 'POST /artists' do
-    xit 'adds a new artist to the database' do
-      # post_response = post(
-      #  '/artists',
-      #  name: 'Wild Nothing',
-      #  genre: 'Indie'
-      # )
+    it 'adds a new artist to the database' do
+      post_response = post(
+        '/artists',
+        name: 'Wild Nothing',
+        genre: 'Indie'
+      )
 
-      # expect(post_response.status).to eq(200)
-
-      # get_response = get('/artists')
-
-      # expect(get_response.body).to include('Wild Nothing')
-      # expect(get_response.body).to eq('Pixies, ABBA, Taylor Swift, Nina Simone, Kiasmos, Wild Nothing')
+      expect(post_response.status).to eq(200)
+      expect(post_response.body).to include('<h1>Artist Created!</h1>')
     end
   end
 end
