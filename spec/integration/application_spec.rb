@@ -98,16 +98,16 @@ describe Application do
   end
 
   describe 'POST /artists' do
-    it "should validate artists parameters" do
+    it 'should validate artists parameters' do
       response = post(
         '/artists',
         invalid_artist_name: 'Taylor Swift',
         invalid_second_artist: 'Pixies'
       )
-      
+
       expect(response.status).to eq(400)
     end
-    
+
     it 'adds a new artist to the database' do
       post_response = post(
         '/artists',
